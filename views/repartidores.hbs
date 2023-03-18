@@ -1,0 +1,834 @@
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIgHRdKzKEajo2T9uICvkdIHToQxgDfHg&libraries=places&calback=initMap&v=weekly">
+      async
+</script>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-3">
+      <img class="logo" src="/imgs/logo_final.png" />
+    </div>
+    <div class="col-md-9">
+      <h3 class="float-end">Repartidores</h3>
+      <!---<h5>Busca Domicilio</h5>--->
+      
+      <!---<input type="text" id="field_name2" name="field_name2" value="" class="mb-12" />--->
+      <!--<input type='button' value='Show Create Modal' id='ShowModalButton' onclick='showCreateModal()' />--->
+    </div>
+  </div>
+</div>
+<div id="guardado"></div>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-9">
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+      <!---<img class="logo" src="/imgs/logo_final.png" />--->
+    </div>
+    <div class="col-md-3">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="agrega">
+        Agregar <i class="bi bi-person-plus"></i>
+      </button>
+      <!---<h3 class="float-end">Clientes</h3>
+      <h5>Busca Domicilio</h5>
+      <div id="guardado"></div>--->
+      <!---<input type="text" id="field_name2" name="field_name2" value="" class="mb-12" />--->
+      <!--<input type='button' value='Show Create Modal' id='ShowModalButton' onclick='showCreateModal()' />--->
+    </div>
+  </div>
+</div>
+{{#if panel}}
+<input type="hidden" value ="" id="panel" />
+<div id="registros">{{{ panel }}}</div>
+
+{{/if}}
+
+<!-- Basic 
+  <div class="card-js"></div>-->
+
+
+  <!-- Add Name 
+  <div style="margin-top: 50px">
+    <div class="card-js" data-capture-name="true"></div>
+  </div>-->
+
+
+  <!-- Change Icon Color 
+  <div style="margin-top: 50px">
+    <div class="card-js" data-capture-name="true" data-icon-colour="#158CBA"></div>
+  </div>-->
+<!---<<div class="col-md-6">
+  <div class="jumbotron">
+    <form action="{{#unless pedido.id}}/new-pedido2{{else}}/update-pedido/{{pedido.id}}{{/unless}}" method="POST">
+      <div class="row">
+        <div class="col">
+          <label for="repartidor">Repartidor:</label>
+          input
+            type="text"
+            name="repartidor"
+            placeholder="Ingrese numero de Repartidor"
+            class="form-control mb-3"
+            value="{{pedido.repartidor}}"
+            autofocus
+          />
+          <select name="repartidor" id="repartidor"  class="form-control mb-3" autofocus placeholder="Elija numero de Repartidor" required>
+            <option value="">-Ingrese numero de Repartidor-</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</op7tion>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="Andres">Andres</option>
+            <option value="Direccion">Direccion</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="nomCliente">Cliente:</label>
+          <input
+            type="text"
+            name="nomCliente"
+            placeholder="Ingrese nombre del Cliente"
+            class="form-control mb-3"
+            value="{{pedido.nomCliente}}"
+            autofocus
+            required
+          />
+          <input id="distancia" name="distancia" type="hidden" value="" class="form-control" />
+          <input id="estimado" name="estimado" type="hidden" value="" class="form-control" />
+          <input id="costo" name="costo" type="hidden" value="" class="form-control" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="org">Origen:</label>
+          <input
+            type="text"
+            name="org"
+            id="org"
+            placeholder="Domicilio Origen"
+            class="form-control mb-12"
+            value="Lago Hielmar 96, Modelo Pensil, Ciudad de México, CDMX, México"
+            required
+          />
+          <input id="orglat" name="orglat" type="hidden" value="" />
+          <input id="orglong" name="orglong" type="hidden" value="" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="dest">Destino:</label>
+          <input
+            type="dest"
+            name="dest"
+            id="dest"
+            placeholder="Domicilio Destino"
+            class="form-control mb-3"
+            value="{{pedido.dest}}"
+            required
+          />
+          <input id="destlat" name="destlat" type="hidden" value="" />
+          <input id="destlong" name="destlong" type="hidden" value="" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="phone_rep">Tel Repartidor:</label>
+          <input
+            type="tel"
+            name="phone_rep"
+            placeholder="5528296055"
+            class="form-control mb-3"
+            value="{{pedido.phone_rep}}"
+          />
+        </div>
+        <div class="col">
+          <label for="phone_cli">Tel Cliente:</label>
+          <input
+            type="tel"
+            name="phone_cli"
+            placeholder="5528296055"
+            class="form-control mb-3"
+            value="{{pedido.phone_cli}}"
+          />
+        </div>
+      </div>
+      {{#if pedido.id}}--->
+        <!---<a
+                href="/edit-pedido/{{pedido.id}}"
+                class="btn btn-secondary"
+              >Actualizar</a>
+        <a href="/" class="btn btn-secondary">
+          Cancel
+        </a>
+      {{else}}
+        <button class="btn btn-primary btn-block">
+          Agregar
+        </button>
+      {{/if}}
+    </form>
+  </div>
+</div>--->
+
+<!---<div id="modalForm" class="modal hide fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 id="modalHeader"></h3>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="hero-unit">
+          <label>First Name:</label>
+          <input type="text" data-bind="value: FirstName" name="FirstName" id="FirstName" />
+          <br />
+          <label>Last Name:</label>
+          <input type="text" data-bind="value: LastName" name="LastName" id="LastName" />
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a id="SaveButton" href="#" class="btn btn-primary">Save changes</a>
+      </div>
+    </div>
+  </div>--->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Repartidor - Nuevo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          
+          <img id="imagenp" style="width:20vw;" class="text-center" />
+          <div id="i" class="">
+            <div class="row">
+              <div class="col">
+                  <label for="imagen">Imagen :</label>
+                  
+                  <form action="/guardaImg" method="POST" enctype="multipart/form-data" id="form">
+                    <input type="file" id="imagen" name="imagen" class="form-control mb-3" autofocus required accept="image/jpeg, image/png, image/jpg">
+                    <input type="hidden" id="mi" value="" name="mi" class="form-control"/>
+                    <button type="submit" class="btn btn-primary invisible" id="img">H</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+          <div id="d" class="">
+            <div class="row">
+              <div class="col">
+                <label for="nomRep">Repartidor:</label>
+                <input type="hidden" id="idRep" />
+                <input type="text" name="nomRep" id="nomRep" placeholder="Ingrese nombre del Repartidor" class="form-control mb-3" value="" autofocus required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="cel">Celular:</label>
+                <select name="cel" id="cel"  class="form-control mb-3" autofocus placeholder="Elija telefono" required>
+                  <option value="">-Elija telefono-</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="Andres">Andres</option>
+                  <option value="Direccion">Direccion</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="phone_rep">Teléfono:</label>
+                <input type="text" name="phone_rep" id="phone_rep" placeholder="Ingrese telefono del Repartidor" class="form-control mb-3" value="" autofocus required/>
+              </div>
+            </div>
+          </div>
+          <!---<<div class="row">
+            <div class="col">
+              <label for="forma_pagomod">Forma de Pago:</label>
+              <select name="forma_pagomod" id="forma_pagomod"  class="form-control mb-3" autofocus placeholder="Elija Forma de Pago" required>
+                <option value="">-Elija de Forma de Pago-</option>
+                <option value="credito">Crédito</option>
+                <option value="debito">Débito</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="mercadopago">Mercado Pago</option>
+                <option value="paypal">Pay Pal</option>
+              </select>
+            </div>
+          </div>
+          <label for="folios">Folio :</label>
+          <div id="folios">
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="folio">
+              Agregar Folio<i class="bi bi-person-plus"></i>
+            </button>
+          </div>
+          <div class="card-js" id="my-card" data-capture-name="true">
+            
+          </div
+          <div class="fol" id="fols['+(c.length+1)+']"><div class="row"><div class="col"><label for="folio">Folio:</label><input type="text" name="folio" id="folio" placeholder="Ingrese folio del Cliente" class="form-control mb-3" value="" autofocus required/></div><div class="row"><div class="col"><label for="cotejo">Cotejo:</label><input type="text" name="cotejo" id="cotejo" placeholder="Ingrese cotejo del Cliente" class="form-control mb-3" value="" autofocus required/></div></div><div class="row"><div class="col"><label for="articulo">Articulo:</label><input type="text" name="articulo" id="articulo" placeholder="Ingrese articulo del Cliente" class="form-control mb-3" value="" autofocus required/></div></div></div></div>>--->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cierraModal">Close</button>
+        <button type="button" class="btn btn-primary invisible salva1" id="agrega2">Save changes</button>
+        <button type="button" class="btn btn-primary invisible salva2" id="actualiza">Save changes</button>
+      </div>
+    </div>
+  </div>;
+  
+<script>
+  var options = {
+        types: [/*'(cities)'*/],
+        componentRestrictions: {country: "mx"}
+    }
+
+  $(document).ready(function(){
+
+    //$("#clientes").append($("#panel").val());
+    /*var options = {
+          types: ['(cities)'],
+          componentRestrictions: {country: "mx"}
+      }
+
+      var input1 = document.getElementById("field_name2");
+      var autocomplete1 = new google.maps.places.Autocomplete(input1, options);*/
+      const image_input = document.querySelector("#imagen");
+      image_input.addEventListener("change", function() {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+
+          console.log(reader);
+          /*var ImageURL = reader.result;
+                // Split the base64 string in data and contentType
+                var block = ImageURL.split(";");
+                // Get the content type
+                var contentType = block[0].split(":")[1];// In this case "image/gif"
+                // get the real base64 content of the file
+                var realData = block[1].split(",")[1];// In this case "iVBORw0KGg...."
+
+          contentType = contentType || '';
+            var sliceSize = sliceSize || 512;
+
+            var byteCharacters = atob(realData);
+            var byteArrays = [];
+
+            for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+          var blob = new Blob(byteArrays, {type: contentType});
+
+          $.ajax({
+                    url:"/guardaImg/"+blob,
+                    data: blob,// the formData function is available in almost all new browsers.
+                    type:"POST",
+                    contentType:"application/octet-stream",
+                    processData:false,
+                    //cache:false,
+                    //dataType:"json", // Change this according to your response from the server.
+                    error:function(err){
+                        console.error(err);
+                    },
+                    success:function(data){
+                        console.log(data);
+                    },
+                    complete:function(){
+                        console.log("Request finished.");
+                    }
+                });*/
+          //const uploaded_image = "/imgs/Andres.png";
+          //document.querySelector("#imagenp").style.backgroundImage = 'url('+uploaded_image+')';
+          //var MyIFrame = document.getElementById("myframe");
+          //var MyIFrameDoc = (MyIFrame.contentWindow || MyIFrame.contentDocument);
+          //if (MyIFrameDoc.document) MyIFrameDoc = MyIFrameDoc.document;
+          $("#img").click();
+          //$("#form").submit(function (e) { return false; });
+
+          //MyIFrameDoc.getElementById("myform").submit();
+          //$("#form").submit(function () {
+                //console.log(this);
+                //e.preventDefault();
+                //return false;
+                /*$.ajax({
+                  url: '/guardaImg',
+                  type: 'post',
+                  data:$('#imagen'),
+                  success:function(data){
+                      // Whatever you want to do after the form is successfully submitted
+                      const uploaded_image = "/home/vsmx/app/public/imgs/"+data;
+                      document.querySelector("#imagenp").style.backgroundImage = 'url('+uploaded_image+')';
+                  }
+              });*/
+           //});
+        });
+        reader.readAsDataURL(this.files[0]);
+        console.log(this.files[0]);
+        //const uploaded_image = "/home/vsmx/app/public/imgs/"+this.files[0].name;
+        //document.querySelector("#imagenp").style.backgroundImage = 'url('+uploaded_image+')';
+        
+      });
+    
+  }).on("click",".prin",function(){
+    var prinbtns = document.getElementsByClassName("dom");
+    var i;
+    //var buttons = prinbtns.getElementsByTagName('button');
+    for (i = 0; i < prinbtns.length; i++) {
+      //console.log(prinbtns[i]);
+      prinbtns[i].className = "dom";
+      /*if(buttons[i].parents(".dom").hasClass("text-bg-success")){
+        console.log(prinbtns[i]);
+        buttons[i].parents(".dom").removeClass("text-bg-success");
+      }*/
+    }
+    $(this).parents(".dom").addClass("text-bg-success");
+    $.get("http://vaperstudio.com:4000/updateDom/"+$("#idCliente").val()+"/"+$(this).prev().val(),{ id: $("idCliente").val()  }, function(data, status){
+      //dp.parents("dom").addClass("text-bg-primary");
+      //console.log("Hola!!");
+    });
+    //console.log("prin");
+  }).on("click",".close",function(){
+    //$(this).parents(".dom").addClass("text-bg-success");
+    $(this).parents(".dom").remove();
+    //console.log("close");
+  }).on("click","#folio2",function(){
+    //$(this).parents(".dom").addClass("text-bg-success");
+    //$(this).parents(".dom").remove();
+    //console.log("close");
+    var c = document.getElementsByClassName("fol");
+
+    var f = '<label for="fols'+(c.length+1)+'">Folio '+(c.length+1)+':</label><div class="fol" id="fols['+(c.length+1)+']"><div class="row"><div class="col"><label for="folio">Folio:</label><input type="text" name="folio" id="folio" placeholder="Ingrese folio del Cliente" class="form-control mb-3" value="" autofocus required/></div><div class="col"><label for="cotejo">Cotejo:</label><input type="text" name="cotejo" id="cotejo" placeholder="Ingrese cotejo del Cliente" class="form-control mb-3" value="" autofocus required/></div><div class="col"><label for="articulo">Articulo:</label><input type="text" name="articulo" id="articulo" placeholder="Ingrese articulo del Cliente" class="form-control mb-3" value="" autofocus required/></div></div></div>';
+    $("#folios").append(f);
+  }).on("click","#agrega2",function(){
+    //$(this).parents(".dom").addClass("text-bg-success");
+    //$(this).parents(".dom").remove();
+    /*console.log($("#idCliente").val());
+    console.log($("#nomClientemod").val());
+    console.log($("#phone_climod").val());
+    console.log($("#forma_pagomod").val());
+    console.log(document.getElementsByClassName("dom"));*/
+
+    //var repartidor = $("#idRep").val();
+    var nombre = $("#nomRep").val();
+    var telefono = $("#phone_rep").val();
+    //var imagen = $("#imagenp").attr("src");
+    var cel = $("#cel").val();
+    //var form = $("#form");
+    ////var articulo = $("#articulo").val();
+
+    /*var doms = document.getElementsByClassName("dom");
+    var i;
+    //var buttons = prinbtns.getElementsByTagName('button');
+    var text = "";
+
+    if(doms.length > 0){
+      for (i = 0; i < doms.length; i++) {
+        //console.log(doms[i]);
+
+        if(doms[i].id != ""){
+          text += doms[i].id+"@";
+        }
+        
+        if(buttons[i].parents(".dom").hasClass("text-bg-success")){
+          console.log(prinbtns[i]);
+          buttons[i].parents(".dom").removeClass("text-bg-success");
+        }
+        
+      }
+    }else{
+       text = "Sin domicilios";   
+    }*/
+
+    //$('#form').submit(function (e) {
+          //e.preventDefault();
+          //var fd = new FormData($("#form"));
+
+          $.post("http://vaperstudio.com:4000/agregaRepartidor/"+nombre+"/"+telefono+"/"+cel,{   }, function(data, status){
+            //dp.parents("dom").addClass("text-bg-primary");
+            //console.log("Aqui guardando imagen");
+            //console.log(data);
+            $("#guardado").empty();
+            $("#guardado").append(data.alerta);
+            $("#registros").empty();
+            $("#registros").append(data.panel);
+            $("#cierraModal").click();
+          });
+     //});
+    
+    /*$.post("http://95.111.215.185:4000/agregaRepartidor/"+nombre+"/"+telefono+"/"+cel,{   }, function(data, status){
+      //dp.parents("dom").addClass("text-bg-primary");
+      //console.log("Aqui");
+      //console.log(data);
+      $("#guardado").empty();
+      $("#guardado").append(data.alerta);
+      $("#registros").empty();
+      $("#registros").append(data.panel);
+      $("#cierraModal").click();
+    });*/
+  }).on("click","#actualiza",function(){
+    //$(this).parents(".dom").addClass("text-bg-success");
+    //$(this).parents(".dom").remove();
+    /*console.log($("#idCliente").val());
+    console.log($("#nomClientemod").val());
+    console.log($("#phone_climod").val());
+    console.log($("#forma_pagomod").val());
+    console.log(document.getElementsByClassName("dom"));*/
+
+    //var cliente = $("#idCliente").val();
+    /*var nombre = $("#nomClientemod").val();
+    var telefono = $("#phone_climod").val();
+    var pago = $("#forma_pagomod").val();
+    var folio = $("#folio").val();
+    var cotejo = $("#cotejo").val();
+    var articulo = $("#articulo").val();*/
+
+    var repartidor = $("#idRep").val();
+    var nombre = $("#nomRep").val();
+    var telefono = $("#phone_rep").val();
+    //var imagen = $("#imagenp").attr("src");
+    var cel = $("#cel").val();
+
+    
+
+    /*var doms = document.getElementsByClassName("dom");
+    var i;
+    //var buttons = prinbtns.getElementsByTagName('button');
+    var text = "";
+
+    if(doms.length > 0){
+      for (i = 0; i < doms.length; i++) {
+        //console.log(doms[i]);
+
+        if(doms[i].id != ""){
+          text += doms[i].id+"@";
+        }
+        
+        if(buttons[i].parents(".dom").hasClass("text-bg-success")){
+          console.log(prinbtns[i]);
+          buttons[i].parents(".dom").removeClass("text-bg-success");
+        }
+        
+      }
+    }else{
+       text = "Sin domicilios";   
+    }*/
+    //imagen.replace("/","_");
+    //imagen.replace(".","-");
+    //console.log($("#imagen"));
+    /*let EDFile = $("#imagen");
+    var img = "";
+    EDFile.mv('/imgs/repartidores/'+cel+'/'+EDFile.name,err => {
+        if(err) return res.status(500).send({ message : err })
+          img = EDFile.name;
+        //return res.status(200).send({ message : 'File upload' })
+    })*/
+    //var fd = new FormData($("#form"));
+    /*var url= "http://95.111.215.185:4000/salvaRepartidor/"+repartidor+"/"+nombre+"/"+telefono+"/"+cel+"/"+fd;
+    $('#form').attr("action",url);
+    $('#form').submit(function (e) {
+          e.preventDefault();
+         
+     });*/
+    
+    $.post("http://vaperstudio.com:4000/salvaRepartidor/"+repartidor+"/"+nombre+"/"+telefono+"/"+cel,{   }, function(data, status){
+            //dp.parents("dom").addClass("text-bg-primary");
+            //console.log("Aqui");
+            //console.log(data);
+            $("#guardado").empty();
+            $("#guardado").append(data.alerta);
+            $("#registros").empty();
+            $("#registros").append(data.panel);
+            $("#cierraModal").click();
+            //console.log("ACTUALIZA IMAGEN");
+          });
+    
+  })/*.on("click","#agrega",function(){
+    //$(this).parents(".dom").addClass("text-bg-success");
+    //$(this).parents(".dom").remove();
+    //console.log("close");
+    const myModalEl2 = document.getElementById('exampleModal2');
+    myModalEl2.addEventListener('show.bs.modal', event => {
+      var input2 = document.getElementById("field_name");
+      var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            //$('#field_name'+event.relatedTarget.id).val(place.formatted_address);
+
+            //calcRoute();
+            //console.log($('#field_name'+event.relatedTarget.id).val());
+            //var addButton = $('.add_button'+event.relatedTarget.id);
+            //var wrapper = $('#myUL3'+event.relatedTarget.id);
+            const wrapper = document.createElement("ul");
+            wrapper.id = "myUL3";
+            $("#domicilios2").append(wrapper);
+            var fieldHTML = '';
+            fieldHTML = '<li class="dom" id="'+place.formatted_address+'"><div class="row"><div class="col-sm-8"><p>'+place.formatted_address+'</p></div><div class="col-sm-2"><button class="close"><i class="bi bi-x"></i></button></div><div class="col-sm-2"><input type="hidden" value="'+place.formatted_address+'" /><button class="prin" type="button"><i class="bi bi-check"></i></button></div></div></li>';
+            $(wrapper).append(fieldHTML); 
+      });
+    });
+  })*/;
+
+
+  function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName('li');
+
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+
+  showEditModal = function(){
+  // Need to replace with data from database
+
+  
+  $('#modalHeader').html('Edit Person');
+  $('#modalForm').modal('show');
+
+  //$('#SaveButton').off('click').on('click', editItem);
+};
+
+showCreateModal = function(){
+  
+  $('#modalHeader').html('Add Person');
+  $('#modalForm').modal('show');
+
+  //$('#SaveButton').off('click').on('click', createItem);
+}
+
+// Get all elements with class="close"
+var closebtns = document.getElementsByClassName("close");
+var i;
+
+// Loop through the elements, and hide the parent, when clicked on
+/*for (i = 0; i < closebtns.length; i++) {
+  closebtns[i].addEventListener("click", function() {
+    this.parentElement.style.display = 'none';
+  });
+}*/
+
+//var maxField = 10; //Input fields increment limitation
+var addButton = $('.add_button'); //Add button selector
+//var wrapper = $('.field_wrapper'); //Input field wrapper
+//var wrapper = $('#myUL2');
+var fieldHTML = ''; //New input field html 
+//var x = 1; //Initial field counter is 1
+
+//Once add button is clicked
+/*$(addButton).click(function(){
+    fieldHTML = '<li>'+$(this).prev().val()+'<span class="close">x</span></li>';
+    console.log("HOLA");
+    //Check maximum number of input fields
+    //if(x < maxField){ 
+        //x++; //Increment field counter
+        $(wrapper).append(fieldHTML); //Add field html
+    //}
+});*/
+
+//Once remove button is clicked
+/*$(wrapper).on('click', '.remove_button', function(e){
+    e.preventDefault();
+    $(this).parent('div').remove(); //Remove field html
+    x--; //Decrement field counter
+});*/
+
+const myModalEl = document.getElementById('exampleModal');
+myModalEl.addEventListener('show.bs.modal', event => {
+  console.log(event.relatedTarget.id);
+  // do something...
+  if(event.relatedTarget.id === "agrega"){
+    $("#i").removeClass("invisible");
+    $("#i").removeClass("visible");
+    $("#d").removeClass("invisible");
+    $("#d").removeClass("visible");
+    $("#i").addClass("invisible");
+    $("#d").addClass("visible");
+    $(".salva2").removeClass("invisible");
+    $(".salva2").removeClass("visible");
+    $(".salva1").removeClass("invisible");
+    $(".salva1").removeClass("visible");
+    $(".salva2").addClass("invisible");
+    $(".salva1").addClass("visible");
+    $("#exampleModalLabel").empty();
+    $("#nomRep").val("");
+    $("#phone_rep").val("");
+    $("#cel").val("");
+    //$("#domicilios").empty();
+    $("#imagenp").addClass("invisible");
+    $("#imagenp").attr("src","");
+    //$("#cotejo").val("");
+    //$("#articulo").val("");
+    $("#exampleModalLabel").append("Cliente - Nuevo");
+    //$("#domicilios").append('<input type="text" id="field_name" name="field_name" class="form-control mb-3 " /><ul id="myUL3"></ul>');
+      
+    /*var input = document.getElementById("field_name");
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          //$('#field_name'+event.relatedTarget.id).val(place.formatted_address);
+
+          //calcRoute();
+          //console.log($('#field_name'+event.relatedTarget.id).val());
+          const wrapper = document.getElementById("myUL3");
+          //wrapper.id = "myUL3";
+          $("#domicilios").append(wrapper);
+          var fieldHTML = '';
+          fieldHTML = '<li class="dom" id="'+place.formatted_address+'"><div class="row"><div class="col-sm-8"><p>'+place.formatted_address+'</p></div><div class="col-sm-2"><button class="close"><i class="bi bi-x"></i></button></div><div class="col-sm-2"></div></div></li>';
+          $(wrapper).append(fieldHTML); 
+    });*/
+  }else{
+    
+    if($("#"+event.relatedTarget.id).hasClass("edit")){
+      console.log($("#"+event.relatedTarget.id).hasClass("img"));
+      $("#i").removeClass("invisible");
+      $("#i").removeClass("visible");
+      $("#d").removeClass("invisible");
+      $("#d").removeClass("visible");
+      $("#i").addClass("invisible");
+      $("#d").addClass("visible");
+      $(".salva1").removeClass("invisible");
+      $(".salva1").removeClass("visible");
+      $(".salva2").removeClass("invisible");
+      $(".salva2").removeClass("visible");
+      $(".salva1").addClass("invisible");
+      $(".salva2").addClass("visible");
+     $.get("http://vaperstudio.com:4000/llenaEdit2/"+event.relatedTarget.id,{ id: event.relatedTarget.id  }, function(data, status){
+        console.log(data);
+        $("#exampleModalLabel").empty();
+        $("#exampleModalLabel").val("");
+        $("#nomRep").val("");
+        $("#phone_rep").val("");
+        $("#cel").val("");
+        //$("#domicilios").empty();
+        //$("#imagenp").addClass("invisible");
+        $("#imagenp").attr("src","");
+        $("#idRep").val(event.relatedTarget.id);
+        $("#exampleModalLabel").append("Repartidores - "+event.relatedTarget.id);
+        $("#nomRep").val(data.nomRep);
+        $("#phone_rep").val(data.phone_rep);
+        $("#cel").val(data.numero);
+        console.log(data.imagen);
+        $("#imagenp").attr("src", data.imagen);
+        //$("#imagenp").removeClass("invisible");
+        //$("#imagenp").addClass("visible");
+        /*$("#cotejo").val(data.cotejo);
+        $("#articulo").val(data.articulo);
+        $("#domicilios").empty();
+        $("#domicilios").append(data.pdom);*/
+        
+        /*var input = document.getElementById("field_name"+event.relatedTarget.id);
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+              var place = autocomplete.getPlace();
+              //$('#field_name'+event.relatedTarget.id).val(place.formatted_address);
+
+              //calcRoute();
+              //console.log($('#field_name'+event.relatedTarget.id).val());
+              var addButton = $('.add_button'+event.relatedTarget.id);
+              var wrapper = $('#myUL2'+event.relatedTarget.id);
+              var fieldHTML = '';
+              fieldHTML = '<li class="dom" id="'+place.formatted_address+'"><div class="row"><div class="col-sm-8"><p>'+place.formatted_address+'</p></div><div class="col-sm-2"><button class="close"><i class="bi bi-x"></i></button></div><div class="col-sm-2"><input type="hidden" value="'+place.formatted_address+'" /><button class="prin" type="button"><i class="bi bi-check"></i></button></div></div></li>';
+              $(wrapper).append(fieldHTML); 
+        });*/
+      }); 
+     }else if($("#"+event.relatedTarget.id).hasClass("img")){
+      console.log($("#"+event.relatedTarget.id).hasClass("img"));
+      $("#d").removeClass("invisible");
+      $("#d").removeClass("visible");
+      $("#i").removeClass("invisible");
+      $("#i").removeClass("visible");
+      $("#d").addClass("invisible");
+      $("#i").addClass("visible");
+      var id = event.relatedTarget.id.split("_");
+      $("#exampleModalLabel").empty();
+      $("#exampleModalLabel").append("Repartidores - "+id[1]);
+      $.get("http://vaperstudio.com:4000/llenaEdit3/"+id[1],{ id: id[1]  }, function(data, status){
+        console.log(data.id);
+        if(data.imagen == ""){
+          $("#imagenp").attr("src", "/imgs/logo_final.png");
+        }else{
+          $("#imagenp").attr("src", data.imagen);
+        }
+        
+        $("#mi").val(data.id);
+        
+      });
+     }
+    }
+  
+  /*var closebtns = document.getElementsByClassName("close");
+  var i;
+  for (i = 0; i < closebtns.length; i++) {
+    closebtns[i].addEventListener("click", function() {
+      this.parentElement.style.display = 'none';
+    });
+  }
+
+  var prinbtns = document.getElementsByClassName("prin");
+  var i;
+  for (i = 0; i < prinbtns.length; i++) {
+    prinbtns[i].addEventListener("click", function() {
+      //this.parentElement.style.display = 'none';
+      console.log($(this).prev().val());
+      var dp = $(this);
+      $.get("http://95.111.215.185:4000/updateDom/"+event.relatedTarget.id+"/"+$(this).prev().val(),{ id: event.relatedTarget.id  }, function(data, status){
+        //dp.parents("dom").addClass("text-bg-primary");
+        console.log("Hola!!");
+      });
+    });
+  }*/
+});
+
+
+function salva(){
+  console.log($(this));
+
+}
+
+</script>

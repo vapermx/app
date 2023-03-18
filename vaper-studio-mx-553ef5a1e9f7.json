@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vaper-studio-mx",
+  "private_key_id": "553ef5a1e9f7eeadf9a85929a5e2172bc0a430c7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrsNTRo/pUCEXA\nN59pXpR6E8C+knRXtZ7S1Drmm4/JGSIPlhwkz+92kvqqvLuySfNF8DOMOy2j0Exj\nBLd4YvjuXHyj/pl2WPwQQta3i1N2CH7Q/uzRkCperteT+wk0aBRQ2SWxVDdyjIUM\nCdoMkfvsGO9yZmClaEhspxFQPwevdeCs2d/trwNcqpUH52L3s+/RNZNRwhWsvrb1\nQc6ZgO325I4C6q126lxPtM3wtEcKp5LTPspOyodzHUTIrw/M1aoTFvkMdiqRjDUL\nfJYckYMZ8ZYIz7IcMiLgX1B53AyDEjawr7ra6SckaPp7m0LYa0vW7yok3wyLSgbw\nSovhvbGZAgMBAAECggEABix8iKHTgHZQMMhnQXIa13VyoL+yMo23vXfPeuek4Nu4\nIXSZxDqcbyh7nkxdWPzHBFCt/9jIbDuzJXvfz5LKhgK6IikHcm2iecC3iR/X01ac\nnc4O7L25AlDZ9GqqYvGrqlkWnYTsXgB+z8ciacGNnCis4pGbH9OLSCntSdQMZhMh\nSZda+0fwOICs0HQnPGEHxhDDYT63neiu671+yJ5XHVN2G62IjJsDOrQK6mFVYAFA\ntrFrnh8CStcaMvk9aG86DVCMBNP052ae8wkm1w8+W10EbKnAtSwKHlDGIjv0+XFm\nl9XzbTCrDqf5L01FIy6ntRokz4FMGfqAPaYeeqZcQQKBgQDmIkHduocu5PTppP9A\nxhAwK5+8h/I1gFZPmZZ0q1BQbDtseV8F2fXhkhF8LK2rzE2RAvEbdAGezX2l7zFi\n5tfDjuSBsl8Q5IjjZyNIudhLZJUjptqC9YTjfdwB2ErOOC+nH7H7PVh/q5sq5bmY\nRZDtXJte+hqK3sa6eppIMUml2QKBgQC+/PcwCli6EDlLZdfi6djaIOdG01xj0bk6\ntLbZkmJXs6IQSm4DzDPJtHFZrUuLjO50Cz9urU82QJT77HCcpyJ/Iw7CNiZkVWnv\np4Ppi50T9SP7d7SJSAbEkTjOXY4f7YEFUpsOj4AycTXJeOjNPs8/GLnVcY4xjncw\nlHIunO5RwQKBgQCJgr7ItsRACR8u3SCIm9Dgd7Ci/riDr4PjXGrCm/sJkyKO1pco\n7+w0NQutnyTHGvTeSVu4g8DUGwWROTPRXQ5gE+oGdYbImUYSW3aB5kqQAjH7c5/t\n0LbvGC12DL/mKTyQKCg5b5aJ8whswYf8rNTEgCl2vwtNH4CvvMKjkI/pQQKBgQCZ\nFgVAsZprEaQLJogEL3MNbMBVCggNTsbNIptKDEbdi3QE4NQMITsFm6gbvIdIRV/B\nDl765NoQX3XL9LpTJrjE9aHX1DWzyK8QVNKseacfnygHYe0I+P3Lw6en6l+IggQf\n8xWsdyPHyuzVICBim8zdA4G5b7sNR+eLvgFEEbAJQQKBgBwq2tiQwUDmM0nbIsdc\n4wEILdCzzECL9ozunOF8BAItIlaxkihE2nquCtK3xxVX7v78DMPcef3vYHLYtHbH\n2o7r8j3LyF447BiHMjsnBO+rYb45sh9YnUw52jqiTXqCg7zUGcryI0ASM9T27jcN\nex0rwzxYcDAK4Zo97P7Mf+q/\n-----END PRIVATE KEY-----\n",
+  "client_email": "vaper-studio-mx@appspot.gserviceaccount.com",
+  "client_id": "115571168549614178885",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vaper-studio-mx%40appspot.gserviceaccount.com"
+}

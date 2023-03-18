@@ -1,0 +1,902 @@
+<!---<button>Send an HTTP GET request to a page and get the result back</button>--->
+{{#if coord}}
+<input id="marcadores" type="hidden" value="{{coord}}" />
+{{/if}}
+{{#if fecha}}
+<input id="inicio" type="hidden" value="{{fecha}}" />
+{{/if}}
+{{#if estimado}}
+<input id="estimado" type="hidden" value="{{estimado}}" />
+{{/if}}
+{{#if waypoints}}
+{{#each waypoints}}
+<input id="waypoints[{{@index}}]" class="waypoints" type="hidden" value="{{this.location}}" />
+{{/each}}
+{{/if}}
+{{#if  myLatLng}}
+<input id="myLatLng" type="hidden" value="{{myLatLng}}" />
+{{/if}}
+{{#if  org}}
+<input id="org" type="hidden" value="{{org}}" />
+{{/if}}
+{{#if pedido}}
+<input id="pedido" type="hidden" value="{{pedido}}" />
+{{/if}}
+{{#if  repartidor}}
+<input id="repartidor" type="hidden" value="{{repartidor}}" />
+{{/if}}
+{{#if  rutaImgRep}}
+<input id="rutaImgRep" type="hidden" value="{{rutaImgRep}}" />
+{{/if}}
+{{#if  telRep}}
+<input id="telRep" type="hidden" value="{{telRep}}" />
+{{/if}}
+
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIgHRdKzKEajo2T9uICvkdIHToQxgDfHg&libraries=places&calback=initMap">
+      async
+</script>
+
+
+
+
+
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <h1><a class="navbar-brand" href="#">
+        <img src="/imgs/logo_final.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top" style="background : #fff ;">
+        Rastrea Pedido - {{cliente}}
+      </a></h1>
+    </div>
+  </nav>
+  <div class="" style="position:relative;">
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+      <!---<h4>Tiempo Estimado</h4>--->
+                  <div class="" style="height: 100vh;width: 100vw;border-radius:0;">
+                    <div class="row g-0">
+                      <!---<div class="col-md-3">
+
+                          
+                        
+                        </br>
+                        <div class="card-body">
+                          
+                          </div>
+                        </div> 
+                        <div class="timer">
+                            <canvas id="mycanvas"></canvas>
+                          </div>
+                      </div>--->
+
+                      <div class="col-sm-12">
+                        <div id="map" style=""></div>
+                      </div>
+
+
+                      <div class="repinfo">
+                        <img src="{{rutaImgRep}}" class="mx-auto d-block img-fluid rounded-start card-img-top" alt="..." style="width: 10vw;float:left;" />
+                      <!---<h5 class="card-title">Card title</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>--->
+                      <h5 class=""><!---<i class="bi bi-emoji-smile"></i>---> {{{nomRep}}}</h5>
+                      <input type="hidden" value="{{nomRep}}" id="nomRep" />
+                      <a class="btn btn-primary btn-sm" role="button" href="https://wa.me/+5215569158396?text=¡Hola!. Requiero ayuda con mi pedido - "><i class="bi bi-telephone-fill"></i>  Contactar</a>
+                      <p class=""><small class="text-muted" id="demo"></small></p>
+                      <div style="display:none;" id="capProp">
+                        <!---<div class="input-group mb-3" >
+                          <span class="input-group-text">$</span>
+                          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="aprop">
+                          <span class="input-group-text">.00</span>
+                        </div>--->
+                        <h5>Propina:</h5>
+                        <div class="row">
+                          <div class="col">
+                            <a href="#" class="coin" id="10" style="text-decoration: none;"><p class="text-center" ><strong>$10</strong><br><i class="bi bi-coin"></i></p></a>
+                          </div>
+                          <div class="col">
+                            <a href="#" class="coin" id="20" style="text-decoration: none;"><p class="text-center" ><strong>$20</strong><br><i class="bi bi-coin"></i></p></a>
+                          </div>
+                          <div class="col">
+                            <a href="#" class="coin" id="30" style="text-decoration: none;"><p class="text-center" ><strong>$30</strong><br><i class="bi bi-coin"></i></p></a>
+                          </div>
+                        </div>
+                      </div>
+                      
+
+                      
+                    </div>
+                  </div>
+                    
+                    <!---<div class="d-grid col-12 mx-auto">
+                      <button type="button" class="btn btn-primary btn-sm" onclick="enviaPropina()" >Enviar Propina</button>
+                    </div>--->
+               <!---<div class="col-sm-6">
+                  <h6 class="card-title"></h6>
+                  <p class="textest" style="color:white;text-align: center;font-size: 4em;margin-top: 10%;font-family: tahoma;color: #929495; ">
+                         <span style="font: 700 0.5em/1 'Oswald', sans-serif;letter-spacing: 0;padding: .25em 0 .325em;display: block;margin: 0 auto;text-shadow: 0 0 80px rgba(255,255,255,.5);background: #000 repeat-y;-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;-webkit-animation: aitf 80s linear infinite;-webkit-transform: translate3d(0,0,0);">  Tiempo Estimado </span>
+                  </p>
+                  <div class="clock">
+                    <div class="digit hours">
+                      <i class="bi bi-alarm segment"></i>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+
+                    <div class="digit hours">
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+
+                    <div class="separator"></div>
+                    <div class="separator2"></div>
+
+                    <div class="digit minutes">
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+
+                    <div class="digit minutes">
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+
+                    <div class="separator"></div>
+                    <div class="separator2"></div>
+
+                    <div class="digit seconds">
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+
+                    <div class="digit seconds">
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                      <div class="segment"></div>
+                    </div>
+                  </div>
+                </div>--->
+              
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="propina"></div>
+      
+      <!---<iframe src="http://95.111.215.185:4000/locations-test/{{repartidor}}/{{org}}/{{myLatLng}}" title="W3Schools Free Online Web Tutorials" style="width:50vw;height:30vh;"></iframe>--->
+      <div class="text-center" id="another" style="display:none;">
+        <div class="">
+          Volver a Comprar
+        </div>
+        <div class="card-body">
+          <!---<h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>--->
+          <div class="row">
+            <div class="col-sm-6">
+              <a href="https://www.vaperstudiomx.com"><img src="/imgs/logo_final.png" class="img-fluid rounded-start" style="width:10vw;" /></a>
+            </div>
+            <div class="col-sm-6">
+              <a href="https://wa.me/+5215569158396?text=Hola!"><img src="/imgs/whatsapp-logo.png" class="img-fluid rounded-start" style="width:10vw;" /></a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<script type="text/javascript">
+
+  var motoMrk;
+//function myMap() {
+            var myLatLng = { lat: 38.3460, lng: -0.4907 };
+            
+            var marcadores;
+            //var myLatLng = { lat: parseInt($("#orglat").val()), lng: parseInt($("#orglong").val()) };
+            var mapProp = {
+                center: myLatLng,
+                zoom: 7,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+
+            };
+            var map = new google.maps.Map(document.getElementById("map"),mapProp);
+
+            //create a DirectionsService object to use the route method and get a result for our request
+                  var directionsService = new google.maps.DirectionsService();
+
+                  //create a DirectionsRenderer object which we will use to display the route
+                  var directionsDisplay = new google.maps.DirectionsRenderer();
+
+                  //bind the DirectionsRenderer to the map
+                  directionsDisplay.setMap(map);
+                  
+                  //create request
+                  var waypoints = [];
+                  //console.log($("").val());
+                  /*$(".waypoints").each(function(index,data){
+                    waypoints.push({
+                      location : this.value,
+                      stopover : true
+                    });
+                  });*/
+                  //console.log(waypoints);
+                  var request = {
+                    origin: document.getElementById("org").value,//"Lago Hielmar 96"
+                    destination: document.getElementById("myLatLng").value,
+                    travelMode: google.maps.TravelMode.TWO_WHEELER, //WALKING, BYCYCLING, TRANSIT
+                    unitSystem: google.maps.UnitSystem.IMPERIAL,
+                    avoidHighways: true,
+                    avoidTolls: true,
+                    optimizeWaypoints : true,
+                    provideRouteAlternatives: true,
+                    waypoints: waypoints,
+                    drivingOptions: {
+                      departureTime: new Date(/* now, or future date */),
+                      trafficModel: 'bestguess'
+                   },
+                  }
+
+                  //pass the request to the route method
+                  directionsService.route(request, function (result, status) {
+                      if (status == google.maps.DirectionsStatus.OK) {
+                          //display route
+                          directionsDisplay.setDirections(result);
+                      } else {
+                          //delete route from map
+                          directionsDisplay.setDirections({ routes: [] });
+                          //center map in London
+                          //map.setCenter(myLatLng);
+
+                          //show error message
+                          //output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+                      }
+                  });
+
+                  directionsDisplay.setOptions({suppressMarkers: false});
+
+                  //console.log($("#marcadores").val());
+                  //marcadores = $("#marcadores").val().split(",");
+                  //console.log(marcadores.length+"LENGTH");
+                  //for (i = 0; i < marcadores.length-1; i++) { 
+                    //console.log(marcadores);
+                  //if(i == 0/*marcadores.length-2*/){
+                      //var coord = marcadores[i].split(",");
+                      //console.log(coord);
+                      var moto = {
+                                url: "/imgs/delivery_icon.png", // url
+                                scaledSize: new google.maps.Size(25, 25), // scaled size
+                                //origin: new google.maps.Point(0,0), // origin
+                                //anchor: new google.maps.Point(0, 0) // anchor
+                            };
+                      motoMrk = new google.maps.Marker({
+                      position: new google.maps.LatLng(19.4434071, -99.1916135),
+                      icon: moto,
+                      map: map
+                    });
+                      
+                  //}
+                //}
+
+                /*const icon = {
+                              url: "/imgs/logo_final.png", // url
+                              scaledSize: new google.maps.Size(50, 50), // scaled size
+                              //origin: new google.maps.Point(0,0), // origin
+                              //anchor: new google.maps.Point(0, 0) // anchor
+                          };
+
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng($("#orglat").val(), $("#orglong").val()),
+                    icon: icon,
+                    map: map
+                  });*/
+
+                /*marker = new google.maps.Marker({
+                    position: new google.maps.LatLng($("#destlat").val(), $("#destlong").val()),
+                    icon: "/imgs/home_icon.png",
+                    map: map
+                  });*/
+
+                  /*function getLastPoint() {
+                    var marcadores = $("#marcadores").val().split("@");
+                    var lastLat;
+                    var lastLong;
+                    for (i = 0; i < marcadores.length; i++) { 
+                        var coord = marcadores[i].split(",");
+                     }
+                  }
+
+                  function moveMoto( map, marker ) {
+                      setTimeout(() => {
+                          motoMrk.setPosition( new google.maps.LatLng( 12.3850, 77.4867 ) );
+                          map.panTo( new google.maps.LatLng( 17.3850, 78.4867 ) );
+                      }, 1000)
+                  };
+
+                  $(document).ready(function(){
+                    $("button").click(function(){
+                      $.get("http://vaperstudio.com:4000/getPoints",{ repartidor: $("#repartidor").val()  }, function(data, status){
+                        console.log(data);
+                        $("#marcadores").val();
+                        $("#marcadores").val(data);
+                        var marcadores = $("#marcadores").val().split("@");
+                        for (i = 0; i < marcadores.length; i++) { 
+                          var coord = marcadores[i].split(",");
+                          var moto = {
+                                    url: "/imgs/delivery_icon.png", // url
+                                    scaledSize: new google.maps.Size(25, 25), // scaled size
+                                    //origin: new google.maps.Point(0,0), // origin
+                                    //anchor: new google.maps.Point(0, 0) // anchor
+                                };
+                          if(i == marcadores.length - 1){
+                              motoMrk = new google.maps.Marker({
+                              position: new google.maps.LatLng(coord[0], coord[1]),
+                              icon: moto,
+                              map: map
+                            });
+                          }
+                        
+                        //console.log(marcadores);
+                        }
+                      });
+                    });
+                  });*/
+
+                  /*setTimeout(function(){
+                          $.get("http://vaperstudio.com:4000/getPoints/"+$("#repartidor").val(),{ repartidor: $("#repartidor").val()  }, function(data, status){
+                              console.log(data);
+                              $("#marcadores").val();
+                              $("#marcadores").val(data);
+                              var marcadores = $("#marcadores").val().split("@");
+                              for (i = 0; i < marcadores.length; i++) { 
+                                var coord = marcadores[i].split(",");
+                                var moto = {
+                                          url: "/imgs/delivery_icon.png", // url
+                                          scaledSize: new google.maps.Size(25, 25), // scaled size
+                                          //origin: new google.maps.Point(0,0), // origin
+                                          //anchor: new google.maps.Point(0, 0) // anchor
+                                      };
+                                if(i == marcadores.length - 1){
+                                    motoMrk = new google.maps.Marker({
+                                      position: new google.maps.LatLng(coord[0], coord[1]),
+                                      icon: moto,
+                                      map: map
+                                    });
+                                    motoMrk.setPosition( new google.maps.LatLng( coord[0], coord[1] ) );
+                                    map.panTo( new google.maps.LatLng( coord[0], coord[1] ) );
+                                }
+                              
+                              //console.log(marcadores);
+                              }
+                            });
+                      }, 10000);*/
+
+                      //setInterval(function() {
+                        //element.innerHTML += "Hello"
+                        //$.get("http://95.111.215.185:4000/getPoints/"+$("#repartidor").val(),{ repartidor: $("#repartidor").val()  }, function(data, status){
+                              //console.log(data);
+                              /*$("#marcadores").val();
+                              $("#marcadores").val(data);*/
+                              //mar = $("#marcadores").val().split("@");
+                              //console.log(mar.length+"LENGTH");
+                              //for (i = 0; i <= mar.length-1; i++) { 
+                                //console.log(mar);
+                              //if(i == 0/*marcadores.length-2*/){
+                                //const ws=new WebSocket(`ws://${window.document.location.host}`);
+                              const ws=new WebSocket('ws://vaperstudio.com:8080');
+                              ws.binaryType = "blob";
+                              // Log socket opening and closing  
+                              ws.addEventListener("open", event => {
+                              console.log("Websocket connection opened");
+                              });
+                              ws.addEventListener("close", event => {
+                              console.log("Websocket connection closed");
+                              });
+                              ws.onmessage = function(message){
+                              /*const msgDiv=document.createElement('div');
+                              msgDiv.classList.add('msgCtn');*/
+                                if (message.data instanceof Blob) {
+                                  reader = new FileReader();
+                                  reader.onload = () => {
+                                    /*msgDiv.innerHTML = reader.result;
+                                    document.getElementById('messages').appendChild(msgDiv);*/
+                                    //console.log(reader.result+"aca");
+
+                                      var coo = reader.result.toString().split("@");
+                                      console.log(coo[1]);
+                                      var co = coo[1].split(",");
+                                      console.log(co);
+                                      if($("#repartidor").val() == coo[0]){
+                                        motoMrk.setPosition( new google.maps.LatLng( parseFloat(co[0]), parseFloat(co[1] ) ));
+                                        map.panTo( new google.maps.LatLng( parseFloat(co[0]), parseFloat(co[1] )) );
+                                      }
+                                      
+                                  };
+                                  reader.readAsText(message.data);
+                                } else {
+                                /*console.log("Result2: " + message.data);
+                                msgDiv.innerHTML = message.data;
+                                document.getElementById('messages').appendChild(msgDiv);*/
+                                var coo = message.data.split("@");
+                                  var co = coo[1].split(",");
+                                  if($("#repartidor").val() == coo[0]){
+                                    motoMrk.setPosition( new google.maps.LatLng( parseFloat(co[0]), parseFloat(co[1] ) ));
+                                    map.panTo( new google.maps.LatLng( parseFloat(co[0]), parseFloat(co[1] )) );
+                                  }
+                                };
+                              };
+                                /*const form=document.getElementById('msgForm');
+                                form.addEventListener('submit',(event) => {
+                                event.preventDefault();
+                                const message=document.getElementById('inputBox').value;
+                                ws.send(message);
+                                document.getElementById('inputBox').value=''
+                              });*/
+
+                                  //var coord = data.split(",");
+                                  //console.log(coord[0]+"<-->"+coord[1]);
+                                  //motoMrk.setMap(null);
+                                   /*var coo = coord[i].split(",");
+                                  console.log(coo);
+                                  motoMrk = {
+                                            url: "/imgs/delivery_icon.png", // url
+                                            scaledSize: new google.maps.Size(25, 25), // scaled size
+                                            //origin: new google.maps.Point(0,0), // origin
+                                            //anchor: new google.maps.Point(0, 0) // anchor
+                                        };
+                                  motoMrk = new google.maps.Marker({
+                                  position: new google.maps.LatLng(data[0].latitude, data[0].longitude),
+                                  icon: moto,
+                                  map: map
+                                });*/
+
+                                  
+                                  
+                                //}
+                              //}
+                            //});
+                        //console.log("refresh");
+                        //clearInterval();
+                      //}, 500);
+
+
+                
+//}
+
+
+// Set the date we're counting down to
+
+//console.log(new Date($("#inicio").val()));
+//console.log(estimado*60000);
+function countDown(){
+    // Update the count down every 1 second
+    var countDownDate = new Date(document.getElementById("inicio").value).getTime();
+    var estimado = document.getElementById("estimado").value;
+    // Get today's date and time
+    var now = new Date().getTime();
+    //console.log(new Date());
+    //console.log($("#inicio").val());
+    // Find the distance between now and the count down date
+    //var distance = (countDownDate+(estimado*60000)) - (now);
+    var distance = (countDownDate+(estimado*60000)) - (now);
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    seconds = new Date(document.getElementById("inicio").value);
+
+
+    // Display the result in the element with id="demo"
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    // If the count down is finished, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+      document.getElementById("capProp").style.display = "block";
+      
+    }
+
+
+  }
+//var x = setInterval(function() { 
+
+// Update the count down every 1 second
+    /*var countDownDate = new Date(document.getElementById("inicio").value.replace(" ", "T")).getTime();
+    //countDownDate.replace(" ", "T")
+    var estimado = document.getElementById("estimado").value;
+    // Get today's date and time
+    var now = new Date().getTime();
+    //console.log(new Date());
+    //console.log($("#inicio").val());
+    // Find the distance between now and the count down date
+    //var distance = (countDownDate+(estimado*60000)) - (now);
+    var distance = (countDownDate+(estimado*60000)) - (now);*/
+
+    // Time calculations for days, hours, minutes and seconds
+    /*var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);*/
+
+    document.addEventListener('DOMContentLoaded', function() {
+  var _hours = document.querySelectorAll('.hours');
+  var _minutes = document.querySelectorAll('.minutes');
+  var _seconds = document.querySelectorAll('.seconds');
+  
+  setInterval(function() {
+    var countDownDate = new Date(document.getElementById("inicio").value.replace(" ", "T")).getTime();
+    //countDownDate.replace(" ", "T")
+    var estimado = document.getElementById("estimado").value;
+    // Get today's date and time
+    var now = new Date().getTime();
+    //console.log(new Date());
+    //console.log($("#inicio").val());
+    // Find the distance between now and the count down date
+    //var distance = (countDownDate+(estimado*60000)) - (now);
+    var distance = (countDownDate+(estimado*60000)) - (now);
+    var date = (countDownDate+(estimado*60000)) - (now);
+    var hours = Math.floor(distance / (1000 * 60 * 60 * 24)), minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)), seconds = Math.floor((distance % (1000 * 60)) / 1000);  
+    
+    setNumber(_hours[0], Math.floor(hours/10), 1);
+    setNumber(_hours[1], hours%10, 1);
+
+    setNumber(_minutes[0], Math.floor(minutes/10), 1);
+    setNumber(_minutes[1], minutes%10, 1);
+
+    setNumber(_seconds[0], Math.floor(seconds/10), 1);
+    setNumber(_seconds[1], seconds%10, 1);
+  }, 1000);
+});
+
+    //seconds = new Date(document.getElementById("inicio").value);
+
+
+    // Display the result in the element with id="demo"
+    //document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds +"s ";
+
+    // If the count down is finished, write some text
+    /*if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+      document.getElementById("capProp").style.display = "block";
+      
+    }*/
+
+
+ //}, 1000);
+// Set the date we're counting down to
+/*var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);*/
+//"+$("#repartidor").val()+"/"+$("#aprop").val()+"/"+$("#pedido").val()
+function enviaPropina(monto){
+  $.get("http://vaperstudio.com:4000/setPropina/"+$("#repartidor").val()+"/"+monto+"/"+$("#pedido").val(),{ repartidor: $("#repartidor").val(), propina : monto, pedido : $("#pedido").val()  }, function(data, status){
+    //console.log(data);
+    /*$("#marcadores").val();
+    $("#marcadores").val(data);*/
+    //mar = $("#marcadores").val().split("@");
+    //console.log(mar.length+"LENGTH");
+    //for (i = 0; i <= mar.length-1; i++) { 
+      //console.log(mar);
+    //if(i == 0/*marcadores.length-2*/){
+      console.log(data);
+      $("#propina").append(data);
+      document.getElementById("googleMap").style.display = "none";
+      document.getElementById("capProp").style.display = "none";
+      document.getElementById("another").style.display = "block";
+      //var coo = data.split(",");
+        //var coord = data.split(",");
+        //console.log(coord[0]+"<-->"+coord[1]);
+        //motoMrk.setMap(null);
+         /*var coo = coord[i].split(",");
+        console.log(coo);
+        motoMrk = {
+                  url: "/imgs/delivery_icon.png", // url
+                  scaledSize: new google.maps.Size(25, 25), // scaled size
+                  //origin: new google.maps.Point(0,0), // origin
+                  //anchor: new google.maps.Point(0, 0) // anchor
+              };
+        motoMrk = new google.maps.Marker({
+        position: new google.maps.LatLng(data[0].latitude, data[0].longitude),
+        icon: moto,
+        map: map
+      });
+
+        motoMrk.setPosition( new google.maps.LatLng( coo[0], coo[1] ) );
+          map.panTo( new google.maps.LatLng( coo[0], coo[1] ) );*/
+        
+
+      //}
+    //}
+  });
+}
+
+$(document).on("click",".coin",function(){
+  enviaPropina($(this).attr("id"));
+});
+
+var digitSegments = [
+    [1,2,3,4,5,6],
+    [2,3],
+    [1,2,7,5,4],
+    [1,2,7,3,4],
+    [6,7,2,3],
+    [1,6,7,3,4],
+    [1,6,5,4,3,7],
+    [1,2,3], 
+    [1,2,3,4,5,6,7],
+    [1,2,7,3,6]
+]
+
+var setNumber = function(digit, number, on) {
+  var segments = digit.querySelectorAll('.segment');
+  var current = parseInt(digit.getAttribute('data-value'));
+
+  // only switch if number has changed or wasn't set
+  if (!isNaN(current) && current != number) {
+    // unset previous number
+    digitSegments[current].forEach(function(digitSegment, index) {
+      setTimeout(function() {
+        segments[digitSegment-1].classList.remove('on');
+      }, index*45)
+    });
+  }
+  
+  if (isNaN(current) || current != number) {
+    // set new number after
+    setTimeout(function() {
+      digitSegments[number].forEach(function(digitSegment, index) {
+        setTimeout(function() {
+          segments[digitSegment-1].classList.add('on');
+        }, index*45)
+      });
+    }, 250);
+    digit.setAttribute('data-value', number);
+  }
+}
+
+class Timer {
+  constructor(container, time = 0) {
+    if (!container) {
+      throw new Error('No container defined.');
+    }
+
+    this.backgroundColor   = '#151515';
+    this.baseArcColor      = '#252424';
+    this.dynamicArcColor   = '#ff9f1c';
+    this.labelsColor       = '#646464';
+    this.valuesColor       = '#ccc';
+    this.canvas            = container;
+    this.ctx               = this.canvas.getContext('2d');
+
+    this.countTo           = time;
+    this.min               = Math.floor(this.countTo / 60);
+    this.sec               = this.countTo - (this.min * 60);
+    this.counter           = 0;
+    this.angle             = 270;
+    this.inc               = 360 / this.countTo;
+    this.noLabelsThreshold = 120;
+
+    this.resize();
+  }
+  
+  resize() {
+    this.cWidth            = this.canvas.width;
+    this.cHeight           = this.canvas.height;
+    // magic numbers
+    this.radius            = Math.floor(this.cWidth / 2 * 0.776) - 4;
+    this.lineWidth         = 5 + Math.floor(this.cWidth * 0.036);
+    this.labelsSize        = 9 + Math.floor(this.cWidth * 0.016);
+    this.secondsSize       = 2 + Math.floor(this.cWidth * 0.192);
+    this.minutesSize       = 2 + Math.floor(this.cWidth * 0.328);
+  }
+
+  draw() {
+    
+    function drawScreen(end) {
+      let ctx    = this.ctx;
+      let width  = this.cWidth;
+      let height = this.cHeight;
+      let grad   = null;
+
+      //======= reset canvas
+      ctx.fillStyle = this.backgroundColor;
+      ctx.fillRect(0, 0, width, height);
+
+      //========== base arc
+      ctx.beginPath();
+      ctx.strokeStyle = this.baseArcColor;
+      ctx.lineWidth = this.lineWidth;
+      ctx.arc(width / 2, height / 2, this.radius + this.lineWidth / 2, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.closePath();
+
+      //========== dynamic arc
+      ctx.beginPath();
+      ctx.strokeStyle = this.dynamicArcColor;
+      ctx.lineWidth = this.lineWidth;
+      ctx.arc(width / 2, height / 2, this.radius + this.lineWidth / 2, Math.PI * 1.5, (Math.PI / 180) * this.angle, false);
+      ctx.stroke();
+      ctx.closePath();
+
+      //======== inner shadow arc
+      grad = ctx.createRadialGradient(width / 2, height / 2, this.radius * 0.94 - this.lineWidth / 2, width / 2, height / 2, this.radius * 1.16 + this.lineWidth / 2);
+      grad.addColorStop(0.0, 'rgba(0,0,0,.4)');
+      grad.addColorStop(0.5, 'rgba(0,0,0,0)');
+      grad.addColorStop(1.0, 'rgba(0,0,0,0.4)');
+
+      ctx.beginPath();
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = this.lineWidth;
+      ctx.arc(width / 2, height / 2, this.radius + this.lineWidth / 2 , 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.closePath();
+
+      //======== bevel arc
+      grad = ctx.createLinearGradient(width / 2, 0, width / 2, height);
+      grad.addColorStop(0.0, '#6c6f72');
+      grad.addColorStop(0.5, '#252424');
+
+      ctx.beginPath();
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.arc(width / 2, height / 2, this.radius, 0, Math.PI * 2, true);
+      ctx.stroke();
+      ctx.closePath();
+
+      //====== emboss arc
+      grad = ctx.createLinearGradient(width / 2, 0, width / 2, height);
+      grad.addColorStop(0.0, 'transparent');
+      grad.addColorStop(0.98, '#6c6f72');
+
+      ctx.beginPath();
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.arc(width / 2, height / 2, this.radius + this.lineWidth, 0, Math.PI * 2, true);
+      ctx.stroke();
+      ctx.closePath();
+
+      // font variables
+      let textColor = this.labelsColor;
+      let textSize = this.labelsSize;
+      let fontFace = 'helvetica, arial, sans-serif';
+
+      //====== Labels
+      if (width > this.noLabelsThreshold) {
+        ctx.fillStyle = textColor;
+        ctx.font = textSize + 'px ' + fontFace;
+        ctx.fillText('MIN', width / 2 * 0.632, height / 2 * 0.68);
+        ctx.fillText('SEC', width / 2 * 1.2, height / 2 * 0.88);
+      }
+
+      //====== Values
+      ctx.fillStyle = this.valuesColor;
+
+      if (this.min > 9) {
+        ctx.font = this.minutesSize + 'px ' + fontFace;
+        ctx.fillText('9', width / 2 * 0.56, height / 2 * 1.28);
+
+        ctx.font = this.minutesSize * 0.24 + 'px ' + fontFace;
+        ctx.fillText('+', width / 2 * 0.424, height / 2 * 0.96);
+      } else {
+        ctx.font = this.minutesSize + 'px ' + fontFace;
+        ctx.fillText(this.min, width / 2 * 0.52, height / 2 * 1.28);
+      }
+
+      ctx.font = this.secondsSize + 'px ' + fontFace;
+      if (this.sec < 10) {
+        ctx.fillText('0' + this.sec, width / 2 * 1.08, height / 2 * 1.28);
+      } else {
+        ctx.fillText(this.sec, width / 2 * 1.08, height / 2 * 1.28);
+      }
+
+
+      if (this.sec <= 0 && this.counter < this.countTo) {
+        this.angle += this.inc;
+        this.counter++;
+        this.min--;
+        this.sec = 59;
+      } else
+      if (this.counter >= this.countTo) {
+        this.sec = 0;
+        this.min = 0;
+        end();
+      } else {
+        this.angle += this.inc;
+        this.counter++;
+        this.sec--;
+      }
+    }
+
+    let interval = setInterval(drawScreen.bind(this, () => {
+      clearInterval(interval);
+    }), 1000);
+  }
+}
+
+let t = new Timer(document.getElementById('mycanvas'), 100);
+t.draw();
+
+///////////////////////////////////////////////////////////////////////
+function resizeHandler() {
+  let canvas = document.getElementById('mycanvas');
+  let el = document.querySelector('.timer');
+  let size = el.offsetWidth < window.innerHeight ? el.offsetWidth : window.innerHeight;
+  canvas.width = size;
+  canvas.height = size;
+  t.resize();
+}
+
+window.onresize = resizeHandler;
+resizeHandler();
+
+
+</script>

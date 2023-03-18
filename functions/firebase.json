@@ -1,0 +1,53 @@
+{
+  "type": "service_account",
+  "project_id": "vaper-studio-mx",
+  "private_key_id": "e2d12a1f0c60007e8a8b5e73c6415c8cb7fe98c2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCnNyALnObxSPN1\nT3Lxm5JG8zNLhphHmEkOudhgMKBOjzgwopqi2xbh4szngvnfCvuycjRAK9SwPyl0\nQW4+UQueNRISnykbigdbgrYNZ+ZCm/OTKIRw0t4Gsnj5sbmCWEp+UfI7mTmvxufT\nJipNsHXqUwYU6tdO5IgxnIOsFldcFFgr/Pk0eqyqkhayG1oqIZJxcaIInkPDdBjc\nyAV+YPvpyVY4AH+Ky7fAOfTNI8qRw3pr9jr0hAeqMUOINYNcWtxPI097JAkztILz\nQ41wF1TytP2dj7ZqZD6X6J3YtgI48vOEFILVXo8UTbnuexDybSZD7NkGWAfor0u0\nwg5OhR0NAgMBAAECggEAB61CGbSb0MdZZSLNaLEavqbpPy73RTovz5J8c5YSlgUr\nsDt6ajBNcaKDZ0pzTEvM5qB+gdUIbJd0a2x+B4lExWOlPYq7hdnQEqjmJhpMsrwp\ngHicSU28I4ZZ2QhfqSUQw8rE4WyxxaHO4/LdKhuy1w288y9WPoWKUAoa7I31Ilbk\n4ey9CPp26EWOodwW2ISEmQmbcdYAF2uMm0vM1A2LkTGYVB8he48DNCh0CFyzx/J7\nMqjLTjoOcBQiKYNGg5ocJt2d3+qlvB/EwH2c9rvnsNNgDN0JtloLd/Cf8WcEHlq4\nQ8wwTQtEbp7aqUiqjGtl1AxaGQfjSXtJbFmzXshLJQKBgQDQJl9c/G91YBishXKA\n9/sAhB5ojRhPr6tSKX+DPTZJxAYGDjn/HENdnTHDNYYbjrsl0v0POjh+c3T5OozK\nTQhMiPaO/CdolWpEvSk4bxSHpFvDw4jQMqs+LyXzZts34hClIn5rAm71tWKJVh4q\npBkMs347tVW9SQ6ZiPUtU1ZjnwKBgQDNp8CosZY+f45HLcLQlEAYUCgj6LSTjkoB\n83zCSdBIlHtTOz6qQOd34gmuP0OiHkjUu2x4+4iPgg2BpdNzreK3K5Yz+fIxEr8h\nkpPSficiesHJTXNaD1tKrgLblVkHurYQ+1yCywWiHZs0l4M2GS8HfQR7o0InQ2Az\nXpg3agdf0wKBgAcr60k24Vg38WGwT1umL52675lGkznboZl5GI2bBE3SVSrMPq9N\nd/y3t8k0BOTaLBSHinSF2wBwVe1oWQV3VfvdFDGk+m6eB0VLByqMmTZ7MTYzfHk/\n5aqE0VfriU4Jme02nQhu0wfgMf7tWqi5cqt/W7AO9V9KLxiXIWtoXaedAoGAN6o/\naKng2/vUvAlz4Ncv3iTcKJQVRJdQCuUoEMLAANVH6Ehx9s1ombdyHVr8aIY/+mzc\nuIaE+SsfkscazAX2BtRibKEr4AKN/31YS7Jfz2Jgz6cKIQdlE3q0RVFQbton68LN\n0I05ch8HYp3cIyl/5Ev/iaOwBUakZGMnWmB1rIcCgYEAzoMRLCmLrTk37sEVpayb\notRtnJ23kZpiyhiQJvSAOCSiWf56BY8ViczM9F+JXD+ZbQDwucuszeyAvQj2UQTl\nYKUVjC9YH4A75euPRDGLjMBl2HnndVXfrR2vA4eisZe9RVFKE14kVebLqn+q3SVG\n1S12dEfrU5vbJc5CIYB20z4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-1d47w@vaper-studio-mx.iam.gserviceaccount.com",
+  "client_id": "102484701673760938985",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1d47w%40vaper-studio-mx.iam.gserviceaccount.com",
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint"
+    ],
+    "source": "functions"
+  },
+  "database": {
+    "rules": "rules"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "database": {
+      "port": 9000
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  }
+}

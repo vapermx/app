@@ -1,0 +1,81 @@
+<!-- Navbar-->
+<header class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow  px-3 px-lg-4" data-scroll-header data-fixed-element>
+    <a class="navbar-brand d-lg-none" href="dev-setup.html">
+      <img src="assets/img/components/logo/vapers.svg" alt="AnnyCases" width="130">
+    </a>
+    <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas" data-target="componentsNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
+
+      <li class="nav-item">
+        <a class="nav-link py-0" href="../components/typography.html">
+          <i class="cxi-profile align-middle mt-n1 mr-2"></i>
+         Cerrar Sesion
+        </a>
+      </li>
+ 
+    </ul>
+
+</header>
+
+<!-- Side navigation (Off-canvas)-->
+<aside class="cs-offcanvas cs-offcanvas-expand " style="background-color:#e9e9e9 " id="componentsNav">
+    <div class="cs-offcanvas-cap d-none d-lg-block py-4">
+      <a class="navbar-brand py-2" href="dev-setup.html">
+        <img src="assets/img/components/logo/vapers2.svg" alt="Vaper Studio MX" width="130">
+    
+      </a>
+      <span class="badge badge-warning">Vaper Studio MX</span>
+    </div>
+    <div class="cs-offcanvas-cap d-flex d-lg-none">
+      <div class="d-flex align-items-center mt-1">
+        <h2 class="text-light mb-0 mr-3">Menu</h2>
+        <span class="badge badge-warning">Docs</span>
+      </div>
+      <button class="close text-light" type="button" data-dismiss="offcanvas" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="d-flex d-lg-none align-items-center py-4 px-3 border-bottom border-light">
+      <a class="btn btn-primary btn-block mr-3 px-4" href="index.html"><i class="cxi-eye mt-n1 mr-2"></i>Preview</a>
+      <a class="btn btn-success btn-block mt-0 px-4" href="../components/typography.html"><i class="cxi-layouts mt-n1 mr-2"></i>Components</a>
+    </div>
+    <div class="cs-offcanvas-body px-0 pt-4 pb-grid-gutter" data-simplebar data-simplebar-inverse>
+      <h1 class="font-size-lg text-dark px-4  pt-3 mt-2 mb-3 card-header"   >Contenido</h1>
+      <hr class="hr-gradient hr-light mb-2 opacity-25">
+      <nav class="nav nav-dark   ">
+        <a class="nav-link px-4 dropdown-item " [routerLink]="['/inicio']" routerLinkActive="active" >Inicio</a>
+        <a class="nav-link px-4">Inicio</a>
+        <a class="nav-link px-4">levantar pedido </a>
+        <a class="nav-link px-4">En ruta</a>
+        <a class="nav-link px-4">historial</a>
+
+    
+      
+      <a href=""></a>
+      
+      <div class="col-md-12">
+  <div class="card bg-dark text-light">
+    <div class="card-header">
+      <h1 class="h4 text-white">Lista de pedidos</h1>
+      <!---<form action="http://vaperstudio.com:4000/reporte">
+          <input type="submit" value="Descarga Reporte" class="pull-right"/>
+      </form>--->
+      <!---<h6>Completados : {{finalizados}}</h6>
+      <h6>Pendientes : {{pendientes}}</h6>--->
+      <h6>Entrantes : <span class="badge bg-primary">{{ent}}</span></h6>
+      <h6>Sin Repartidor : <span class="badge bg-light" style="color:#000;">{{noas}}</span></h6>
+      <h6>No Iniciados : <span class="badge bg-danger">{{noini}}</span></h6>
+      <h6>Pendientes : <span class="badge bg-warning">{{pendientes}}</span></h6>
+      <h6>En Ruta : <span class="badge bg-info">{{enruta}}</span></h6>
+      <h6>Completados : <span class="badge bg-success">{{completado}}</span></h6>
+      
+      
+        
+    
+
+      
+      </nav>
+    </div>
+  </aside>
